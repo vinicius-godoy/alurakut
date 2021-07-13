@@ -37,7 +37,7 @@ export default function Home() {
             Bem vindo(a)
           </h1>
 
-          <OrkutNostalgicIconSet />
+          <OrkutNostalgicIconSet recados = "13" fotos= "45" videos= "2" fas= "1" mensagens= "7" confiavel="3" legal="3" sexy="3" />
         </Box>
       </div>
       <div className="profileRelationsArea" style={{gridArea: 'profileRelationsArea'}}>
