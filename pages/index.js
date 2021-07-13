@@ -15,6 +15,12 @@ function ProfileSidebar(propriedades) {
 export default function Home() {
   const githubUser = 'vinicius-godoy';
   const pessoasFavoritas = [
+    'EnzoSchetine',
+    'dev-st4rk',
+    'arrooxa',
+    'aarthificial',
+    'filipedeschamps',
+    'brunobertolini',
     'juunegreiros', 
     'omariosouto', 
     'peas', 
