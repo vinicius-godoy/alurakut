@@ -27,7 +27,8 @@ export default function Home() {
   const [comunidades, setComunidades] = React.useState([{
     id: 143526463465793962592352345546,
     title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
+    link: 'https://www.orkut.br.com/MainCommunity?cmm=10000'
   }]);
   // const comunidades = ['Alurakut'];
   const pessoasFavoritas = [
@@ -68,13 +69,15 @@ export default function Home() {
             e.preventDefault();
             const dadosDoForm = new FormData(e.target);
 
-            console.log('Campo: ', dadosDoForm.get('title'));
-            console.log('Campo: ', dadosDoForm.get('image'));
+            console.log('Nome: ', dadosDoForm.get('title'));
+            console.log('Link Capa: ', dadosDoForm.get('image'));
+            console.log('Link Site: ', dadosDoForm.get('link'));
 
             const comunidade = {
               id: new Date().toISOString(),
               title: dadosDoForm.get('title'),
-              image: dadosDoForm.get('image')
+              image: dadosDoForm.get('image'),
+              link: dadosDoForm.get('link')
             };
 
             // comunidades.push('Alura Stars');
@@ -95,6 +98,13 @@ export default function Home() {
                 aria-label="Coloque uma URL para usarmos de capa" 
               />
             </div>
+            <div>
+              <input 
+                placeholder="Coloque uma URL para encaminharmos para sua comunidade" 
+                name="link" 
+                aria-label="Coloque uma URL para encaminharmos para sua comunidade" 
+              />
+            </div>
 
             <button>
               Criar comunidade
@@ -111,7 +121,7 @@ export default function Home() {
             {comunidades.map((itemAtual) => {
               return (
                   <li key={itemAtual.id}>
-                  <a href={`/users/${itemAtual.title}`}>
+                  <a href={`${itemAtual.link}`}>
                     <img src={itemAtual.image} />
                     <span>{itemAtual.title}</span>
                   </a>
