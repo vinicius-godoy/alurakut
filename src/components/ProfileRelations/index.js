@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Box from '../Box';
 
 export const ProfileRelationsBoxWrapper = styled(Box)`
+  background-color: #FFFFFFDC;
   ul {
     display: grid;
     grid-gap: 8px;
