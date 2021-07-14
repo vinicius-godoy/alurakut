@@ -1,6 +1,6 @@
 # Alurakut
 
-Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de frontend e nos frameworks React e Next.js fazendo uma versão própria do Orkut, contém componentes próprios e uso de States e Hooks.
+Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de frontend e nos frameworks React e Next.js fazendo uma versão própria do Orkut, esse projeto usa componentes e styled components próprios, Hooks como useState e useEffect, APIs e CMD.
 
 ![Print da Página Inicial do Site Alurakut](img/PrintSite.png)
 
@@ -8,7 +8,7 @@ Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de
 
 - [x] Aula 1 - Componentes com React, Styled Components e NextJS
 - [x] Aula 2 - React, State e o primeiro Formulário
-- [ ] Aula 3
+- [x] Aula 3 - Hooks no React. useEffect e protocolo HTTP
 - [ ] Aula 4
 - [ ] Aula 5
 
@@ -21,6 +21,7 @@ Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de
 - [x] Limitar Componente ProfileRelationsBoxWrapper para 6 itens;
 - [x] Customizar Tema e Trocar Imagem de Fundo;
 - [x] Fazer um README melhor;
+- [x] Acabar o Componente usando a API do GitHub;
 
 ## Site em Produção
 
