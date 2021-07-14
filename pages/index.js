@@ -73,16 +73,28 @@ export default function Home() {
             console.log('Link Capa: ', dadosDoForm.get('image'));
             console.log('Link Site: ', dadosDoForm.get('link'));
 
-            const comunidade = {
-              id: new Date().toISOString(),
-              title: dadosDoForm.get('title'),
-              image: dadosDoForm.get('image'),
-              link: dadosDoForm.get('link')
-            };
+            if(dadosDoForm.get('title') != ''){
+              let imagemComunidade = dadosDoForm.get('image');
+              if(imagemComunidade === ''){
+                console.log('Link Inválido');
+                const imagemId = Math.floor(Math.random() * 99999) + 1;
+                imagemComunidade = 'https://picsum.photos/200/300.jpg?' + imagemId;
+              }
 
-            // comunidades.push('Alura Stars');
-            const comunidadesAtualizadas = [...comunidades, comunidade];
-            setComunidades(comunidadesAtualizadas);
+              const comunidade = {
+                id: new Date().toISOString(),
+                title: dadosDoForm.get('title'),
+                image: imagemComunidade,
+                link: dadosDoForm.get('link')
+              };
+
+              console.log(comunidade);
+
+              // comunidades.push('Alura Stars');
+              const comunidadesAtualizadas = [...comunidades, comunidade];
+              setComunidades(comunidadesAtualizadas);
+            }else{
+              alert('Coloque um nome na comunidade!');}
           }}>
             <div>
               <input 
