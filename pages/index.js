@@ -131,7 +131,7 @@ export default function Home() {
             Comunidades ({comunidades.length})
           </h2>
           <ul>
-            {comunidades.map((itemAtual) => {
+            {comunidades.slice(0,6).map((itemAtual) => {
               return (
                   <li key={itemAtual.id}>
                   <a href={`${itemAtual.link}`}>
@@ -148,7 +148,7 @@ export default function Home() {
             Pessoas da comunidade ({pessoasFavoritas.length})
           </h2>
           <ul>
-            {pessoasFavoritas.map((itemAtual) => {
+            {pessoasFavoritas.slice(0,6).map((itemAtual) => {
               return (
                   <li key={itemAtual}>
                   <a href={`/users/${itemAtual}`}>
