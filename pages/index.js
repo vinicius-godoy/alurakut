@@ -6,7 +6,6 @@ import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 
 // SideBar de Perfil
 function ProfileSidebar(propriedades) {
-  console.log(propriedades);
   return (
     <Box as="aside">
         <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px'}} />
@@ -30,16 +29,16 @@ function ProfileRelationsBox(propriedades) {
         {propriedades.title} ({propriedades.itens.length})
       </h2>
       <ul>
-        {/* {comunidades.slice(0,6).map((itemAtual) => {
+        {propriedades.itens.slice(0,6).map((itemAtual) => {
           return (
               <li key={itemAtual.id}>
-              <a href={`${itemAtual.link}`}>
-                <img src={itemAtual.image} />
-                <span>{itemAtual.title}</span>
+              <a href={itemAtual.html_url}>
+                <img src={itemAtual.avatar_url} />
+                <span>{itemAtual.login}</span>
               </a>
               </li>
           )
-        })} */}
+        })}
       </ul>
     </ProfileRelationsBoxWrapper>
   )
@@ -68,14 +67,42 @@ export default function Home() {
     'marcobrunodev', 
     'felipefialho'
   ];
+  // Quem segue o usuário
   const [seguidores, setSeguidores] = React.useState([]);
   React.useEffect(function() {
-    fetch("https://api.github.com/users/EnzoSchetine/followers")
+    const linkAPI = "https://api.github.com/users/" + githubUser + "/followers";
+    fetch(linkAPI)
     .then(function (respostaDoServidor) {
-      return respostaDoServidor.json();
+      if(respostaDoServidor.ok){
+        return respostaDoServidor.json();
+      }
+
+      throw new Error('Aconteceu um problema na API do Github :( - Código ' + respostaDoServidor.status);
     })
     .then(function (respostaConvertida) {
       setSeguidores(respostaConvertida);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+    })
+  }, [])
+  // Quem o usuário segue
+  const [seguindo, setSeguindo] = React.useState([]);
+  React.useEffect(function() {
+    const linkAPI = "https://api.github.com/users/" + githubUser + "/following";
+    fetch(linkAPI)
+    .then(function (respostaDoServidor) {
+      if(respostaDoServidor.ok){
+        return respostaDoServidor.json();
+      }
+
+      throw new Error('Aconteceu um problema na API do Github :( - Código ' + respostaDoServidor.status);
+    })
+    .then(function (respostaConvertida) {
+      setSeguindo(respostaConvertida);
+    })
+    .catch(function (erro) {
+      console.log(erro);
     })
   }, [])
   
@@ -158,7 +185,6 @@ export default function Home() {
         </Box>
       </div>
       <div className="profileRelationsArea" style={{gridArea: 'profileRelationsArea'}}>
-        <ProfileRelationsBox title="Seguidores" itens={seguidores} />
         <ProfileRelationsBoxWrapper>
           <h2 className="smallTitle">
             Comunidades ({comunidades.length})
@@ -176,7 +202,9 @@ export default function Home() {
             })}
           </ul>
         </ProfileRelationsBoxWrapper>
-        <ProfileRelationsBoxWrapper>
+        <ProfileRelationsBox title="Seguidores" itens={seguidores} />
+        <ProfileRelationsBox title="Seguindo" itens={seguindo} />
+        {/* <ProfileRelationsBoxWrapper> Deixar comentado enquanto não for necessário na Imersão
           <h2 className="smallTitle">
             Pessoas da comunidade ({pessoasFavoritas.length})
           </h2>
@@ -192,7 +220,7 @@ export default function Home() {
               )
             })}
           </ul>
-        </ProfileRelationsBoxWrapper>
+        </ProfileRelationsBoxWrapper> */}
       </div>
     </MainGrid>
   </>
