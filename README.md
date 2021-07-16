@@ -9,7 +9,7 @@ Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de
 - [x] Aula 1 - Componentes com React, Styled Components e NextJS
 - [x] Aula 2 - React, State e o primeiro Formulário
 - [x] Aula 3 - Hooks no React. useEffect e protocolo HTTP
-- [ ] Aula 4
+- [x] Aula 4 - Requisições com GraphQL, BFF e AJAX!
 - [ ] Aula 5
 
 ## Desafios Cumpridos
