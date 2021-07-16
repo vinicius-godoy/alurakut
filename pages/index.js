@@ -200,16 +200,16 @@ export default function Home() {
             </div>
             <div>
               <input 
-                placeholder="Coloque uma URL para usarmos de capa" 
+                placeholder="Coloque uma URL para usarmos de capa (Opcional)" 
                 name="image" 
-                aria-label="Coloque uma URL para usarmos de capa" 
+                aria-label="Coloque uma URL para usarmos de capa (Opcional)" 
               />
             </div>
             <div>
               <input 
-                placeholder="Coloque uma URL para encaminharmos para sua comunidade" 
+                placeholder="Coloque uma URL para encaminharmos para sua comunidade (Opcional)" 
                 name="link" 
-                aria-label="Coloque uma URL para encaminharmos para sua comunidade" 
+                aria-label="Coloque uma URL para encaminharmos para sua comunidade (Opcional)" 
               />
             </div>
 
