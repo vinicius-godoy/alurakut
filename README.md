@@ -22,7 +22,10 @@ Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de
 - [x] Customizar Tema e Trocar Imagem de Fundo;
 - [x] Fazer um README melhor;
 - [x] Acabar o Componente usando a API do GitHub;
+- [x] Adicionar funcionalidade ao botão de sair;
 - [ ] Fazer Scraps/Recados Funcionais;
+- [ ] Fazer campo de pesquisa Funcional;
+- [ ] Colocar animação de Loading;
 
 ## Site em Produção
 
@@ -35,13 +38,14 @@ Deploy feito no site [Vercel ](https://vercel.com) **(Clique para acessar)**:
 Projeto criado com o comando:
 
 ```bash
-npx create-next-app --example with-styled-components with-styled-components-app
+$npx create-next-app --example with-styled-components with-styled-components-app
 # or
-yarn create next-app --example with-styled-components with-styled-components-app
+$yarn create next-app --example with-styled-components with-styled-components-app
 ```
 
 Para testar basta baixar e executar o comando:
 
 ```bash
-yarn dev
+$yarn
+$yarn dev
 ```
