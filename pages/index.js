@@ -49,7 +49,6 @@ function ProfileRelationsBox(propriedades) {
 export default function Home(props) {
   const githubUser = props.githubUser;
   const [comunidades, setComunidades] = React.useState([]);
-  // const comunidades = ['Alurakut'];
   const pessoasFavoritas = [
     'EnzoSchetine',
     'dev-st4rk',
@@ -134,7 +133,6 @@ export default function Home(props) {
   <>
     <AlurakutMenu githubUser={githubUser} />
     <MainGrid>
-      {/* <Box style="grid-area: profileArea;"> */}
       <div className="profileArea" style={{gridArea: 'profileArea'}}>
         <ProfileSidebar githubUser={githubUser}/>
       </div>
@@ -186,10 +184,6 @@ export default function Home(props) {
                 const comunidadesAtualizadas = [...comunidades, comunidade]
                 setComunidades(comunidadesAtualizadas)
               })
-
-              // comunidades.push('Alura Stars');
-              // const comunidadesAtualizadas = [...comunidades, comunidade];
-              // setComunidades(comunidadesAtualizadas);
             }else{
               alert('Coloque um nome na comunidade!');}
           }}>
@@ -241,23 +235,6 @@ export default function Home(props) {
         </ProfileRelationsBoxWrapper>
         <ProfileRelationsBox title="Seguidores" itens={seguidores} />
         <ProfileRelationsBox title="Seguindo" itens={seguindo} />
-        {/* <ProfileRelationsBoxWrapper> Deixar comentado enquanto não for necessário na Imersão
-          <h2 className="smallTitle">
-            Pessoas da comunidade ({pessoasFavoritas.length})
-          </h2>
-          <ul>
-            {pessoasFavoritas.slice(0,6).map((itemAtual) => {
-              return (
-                  <li key={itemAtual}>
-                  <a href={`/users/${itemAtual}`}>
-                    <img src={`https://github.com/${itemAtual}.png`} />
-                    <span>{itemAtual}</span>
-                  </a>
-                  </li>
-              )
-            })}
-          </ul>
-        </ProfileRelationsBoxWrapper> */}
       </div>
     </MainGrid>
   </>
