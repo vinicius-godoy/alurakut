@@ -10,7 +10,7 @@ Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de
 - [x] Aula 2 - React, State e o primeiro Formulário
 - [x] Aula 3 - Hooks no React. useEffect e protocolo HTTP
 - [x] Aula 4 - Requisições com GraphQL, BFF e AJAX!
-- [ ] Aula 5
+- [x] Aula 5 - Sistema de Login: o desafio final
 
 ## Desafios Cumpridos
 
@@ -22,6 +22,7 @@ Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de
 - [x] Customizar Tema e Trocar Imagem de Fundo;
 - [x] Fazer um README melhor;
 - [x] Acabar o Componente usando a API do GitHub;
+- [ ] Fazer Scraps/Recados Funcionais;
 
 ## Site em Produção
 
