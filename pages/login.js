@@ -42,7 +42,7 @@ export default function LoginScreen() {
             }}>
             <p>
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
-          </p>
+            </p>
             <input 
               placeholder="Usuário"
               value={githubUser}
@@ -51,10 +51,12 @@ export default function LoginScreen() {
                 setGithubUser(evento.target.value)
               }} 
             />
-            {githubUser.lenght === 0 
-              ? 'Preencha o campo'
-              : ''
-            }
+            <div style={{ marginBottom: '10px', color: 'red' }}>
+              {githubUser === '' 
+                ? 'Preencha o campo!'
+                : ''
+              }
+            </div>
             <button type="submit">
               Login
           </button>
