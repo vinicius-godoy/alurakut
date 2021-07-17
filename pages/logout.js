@@ -8,7 +8,7 @@ export default function LogoutSite() {
 }
 
 export async function getServerSideProps(context) {
-    nookies.destroy(null, 'USER_TOKEN')
+    nookies.destroy(context, 'USER_TOKEN')
 
     return {
         redirect: {

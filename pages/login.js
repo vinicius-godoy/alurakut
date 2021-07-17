@@ -81,3 +81,23 @@ export default function LoginScreen() {
     </main>
   )
 } 
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context)
+  const token = cookies.USER_TOKEN
+
+  if(!token) {
+    return {
+      props: {
+        message: 'O usuário não está logado!'
+      }
+    }
+  }
+
+  return {
+    redirect: {
+      destination: '/',
+      permanent: false,
+    }
+  }
+}
