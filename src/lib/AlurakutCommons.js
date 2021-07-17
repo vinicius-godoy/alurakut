@@ -19,7 +19,7 @@ function Link({ href, children, ...props }) {
 // ================================================================================================================
 // Menu
 // ================================================================================================================
-export function AlurakutMenu({ githubUser }) {
+export function AlurakutMenu({ githubUser, pesquisas, setPesquisas }) {
   const [isMenuOpen, setMenuState] = React.useState(false);
   return (
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
@@ -39,7 +39,13 @@ export function AlurakutMenu({ githubUser }) {
             Sair
           </a>
           <div>
-            <input placeholder="Pesquisar no Orkut" />
+            <input
+              placeholder="Pesquisar no Orkut"
+              value={pesquisas}
+              onChange={(evento) => {
+                setPesquisas(evento.target.value)
+              }}
+            />
           </div>
         </nav>
 

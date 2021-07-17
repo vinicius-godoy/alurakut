@@ -49,6 +49,7 @@ function ProfileRelationsBox(propriedades) {
 export default function Home(props) {
   const githubUser = props.githubUser;
   const [comunidades, setComunidades] = React.useState([]);
+  const [pesquisas, setPesquisas] = React.useState([]);
   const pessoasFavoritas = [
     'EnzoSchetine',
     'dev-st4rk',
@@ -131,7 +132,7 @@ export default function Home(props) {
   
   return (
   <>
-    <AlurakutMenu githubUser={githubUser} />
+    <AlurakutMenu githubUser={githubUser} pesquisas={pesquisas} setPesquisas={setPesquisas} />
     <MainGrid>
       <div className="profileArea" style={{gridArea: 'profileArea'}}>
         <ProfileSidebar githubUser={githubUser}/>
@@ -221,7 +222,15 @@ export default function Home(props) {
             Comunidades ({comunidades.length})
           </h2>
           <ul>
-            {comunidades.slice(0,6).map((itemAtual) => {
+            {comunidades.filter((value) => {
+              const nomeComunidade = value.title
+              const nomePesquisa = nomeComunidade.substr(0, pesquisas.length)
+              if(nomePesquisa.length == 0){
+                return value
+              }else{
+                return nomePesquisa.toUpperCase() === pesquisas.toUpperCase()
+              }
+            }).slice(0,6).map((itemAtual) => {
               return (
                   <li key={itemAtual.id}>
                   <a href={`${itemAtual.link}`}>
