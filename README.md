@@ -23,9 +23,9 @@ Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de
 - [x] Fazer um README melhor;
 - [x] Acabar o Componente usando a API do GitHub;
 - [x] Adicionar funcionalidade ao botão de sair;
-- [ ] Fazer Scraps/Recados Funcionais;
-- [ ] Fazer campo de pesquisa Funcional;
-- [ ] Colocar animação de Loading;
+- [x] Fazer Scraps/Recados Funcionais;
+- [x] Fazer campo de pesquisa Funcional;
+- [ ] Fazer Perfil Funcional;
 
 ## Site em Produção
 

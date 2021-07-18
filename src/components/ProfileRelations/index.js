@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Box from '../Box';
 
-export const ProfileRelationsBoxWrapper = styled(Box)`
+const ProfileRelationsBoxWrapper = styled(Box)`
   background-color: #FFFFFFDC;
   ul {
     display: grid;
@@ -51,3 +51,5 @@ export const ProfileRelationsBoxWrapper = styled(Box)`
     }
   }
 `;
+
+export default ProfileRelationsBoxWrapper

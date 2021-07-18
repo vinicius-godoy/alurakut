@@ -195,7 +195,7 @@ function AlurakutMenuProfileSidebar({ githubUser }) {
 // ================================================================================================================
 // AlurakutProfileSidebarMenuDefault
 // ================================================================================================================
-export function AlurakutProfileSidebarMenuDefault() {
+export function AlurakutProfileSidebarMenuDefault({ githubUser }) {
   return (
     <AlurakutProfileSidebarMenuDefault.Wrapper>
       <nav>
@@ -203,7 +203,7 @@ export function AlurakutProfileSidebarMenuDefault() {
           <img src={`${BASE_URL}/icons/user.svg`} />
             Perfil
           </a>
-        <a href="/">
+        <a href={`/scrapbook/${githubUser}`}>
           <img src={`${BASE_URL}/icons/book.svg`} />
             Recados
           </a>

@@ -49,6 +49,20 @@ const Box = styled.div`
       opacity: 1;
     }
   }
+  textarea {
+    font-family: Arial;
+    resize: none;
+    width: 100%;
+    background-color: #F4F4F4;
+    color: #333333;
+    border: 0;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    ::placeholder {
+      color: #333333;
+      opacity: 1;
+    }
+  }
   button {
     border: 0;
     padding: 8px 12px;

@@ -1,25 +1,31 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import nookies from 'nookies'
 import jwt from 'jsonwebtoken'
-import MainGrid from '../src/components/Main Grid'
-import Box from '../src/components/Box'
-import ProfileSidebar from '../src/components/ProfileSidebar'
-import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations'
-import ProfileRelationsBox from '../src/components/ProfileRelationsBox'
-import { 
-  ScrapBox,
-  NoScraps
-} from '../src/components/ScrapBox'
-import { 
+import {
   AlurakutMenu,
   AlurakutProfileSidebarMenuDefault,
-  OrkutNostalgicIconSet
-} from '../src/lib/AlurakutCommons'
+  OrkutNostalgicIconSet,
+} from '../../src/lib/AlurakutCommons'
 
-export default function Home(props) {
-  const githubUser = props.githubUser;
-  const [scraps, setScraps] = React.useState([])
-  React.useEffect(() => {
+import MainGrid from '../../src/components/Main Grid'
+import Box from '../../src/components/Box'
+import ProfileSidebar from '../../src/components/ProfileSidebar'
+import ProfileRelationsBoxWrapper from '../../src/components/ProfileRelations'
+import ProfileRelationsBox from '../../src/components/ProfileRelationsBox'
+import { ScrapBox, NoScraps } from '../../src/components/ScrapBox'
+
+export default function ScrapbookScreen(props) {
+  const githubUser = props.githubUser
+  
+  const router = useRouter()
+  const { user } = router.query
+  const scrapbookUser = user
+
+  const [comunidades, setComunidades] = useState([])
+  const [pesquisas, setPesquisas] = useState([])
+  const [scraps, setScraps] = useState([])
+  useEffect(() => {
     // API GraphQL - POST
     fetch('https://graphql.datocms.com/', {
       method: 'POST',
@@ -29,7 +35,7 @@ export default function Home(props) {
         'Accept': 'application/json',
       },
       body: JSON.stringify({"query" : `query MyQuery {
-        allScraps(filter: {scrapbookSlug: {matches: {pattern: "${githubUser}"}}}) {
+        allScraps(filter: {scrapbookSlug: {matches: {pattern: "${scrapbookUser}"}}}) {
           id
           message
           creatorSlug
@@ -43,11 +49,9 @@ export default function Home(props) {
       setScraps(scrapsVindasDoDato)
     })
   }, [])
-  const [comunidades, setComunidades] = React.useState([]);
-  const [pesquisas, setPesquisas] = React.useState([]);
   // Quem segue o usuário
-  const [seguidores, setSeguidores] = React.useState([]);
-  React.useEffect(function() {
+  const [seguidores, setSeguidores] = useState([])
+  useEffect(function() {
     // API GitHub - GET
     const linkAPI = "https://api.github.com/users/" + githubUser + "/followers";
     fetch(linkAPI)
@@ -92,8 +96,8 @@ export default function Home(props) {
 
   }, [])
   // Quem o usuário segue
-  const [seguindo, setSeguindo] = React.useState([]);
-  React.useEffect(function() {
+  const [seguindo, setSeguindo] = useState([]);
+  useEffect(function() {
     const linkAPI = "https://api.github.com/users/" + githubUser + "/following";
     fetch(linkAPI)
     .then(function (respostaDoServidor) {
@@ -104,15 +108,22 @@ export default function Home(props) {
       throw new Error('Aconteceu um problema na API do Github :( - Código ' + respostaDoServidor.status);
     })
     .then(function (respostaConvertida) {
-      setSeguindo(respostaConvertida);
+      if(respostaConvertida != null){
+        setSeguindo(respostaConvertida);
+      }
+      
+      throw new Error('A response da API do Github está vazia');
     })
     .catch(function (erro) {
       console.log(erro);
     })
   }, [])
+
+  console.log(seguidores)
+  console.log(seguindo)
   
-  return (
-  <>
+  return(
+    <>
     <AlurakutMenu githubUser={githubUser} pesquisas={pesquisas} setPesquisas={setPesquisas} />
     <MainGrid>
       <div className="profileArea" style={{gridArea: 'profileArea'}}>
@@ -121,84 +132,69 @@ export default function Home(props) {
       <div className="welcomeArea" style={{gridArea: 'welcomeArea'}}>
         <Box>
           <h1 className="title">
-            Bem vindo(a), {githubUser}
+            Envie um recado para {scrapbookUser}!
           </h1>
-
-          <OrkutNostalgicIconSet recados = {scraps.length} fotos= "45" videos= "2" fas= "1" mensagens= "7" confiavel="3" legal="3" sexy="3" />
-        </Box>
-
-        <Box>
-          <h2 className="subTitle">O que você deseja fazer?</h2>
-          <form name="form1" onSubmit={function handleCreateCommunity(e) {
-            e.preventDefault();
+          <form name="form1" onSubmit={function handleCreateScrap(e) {
+            e.preventDefault()
+            const dadosDoForm = new FormData(e.target)
             document.form1.reset()
-            const dadosDoForm = new FormData(e.target);
 
-            console.log('Nome: ', dadosDoForm.get('title'));
-            console.log('Link Capa: ', dadosDoForm.get('image'));
-            console.log('Link Site: ', dadosDoForm.get('link'));
+            console.log('Scrap: ', dadosDoForm.get('scrap'))
+            console.log('Remetente: ', githubUser)
+            console.log('Destinatário: ', scrapbookUser)
 
-            if(dadosDoForm.get('title') != ''){
-              let imagemComunidade = dadosDoForm.get('image');
-              if(imagemComunidade === ''){
-                console.log('Link Inválido');
-                const imagemId = Math.floor(Math.random() * 99999) + 1;
-                imagemComunidade = 'https://picsum.photos/200/300.jpg?' + imagemId;
-              }
+            if(dadosDoForm.get('scrap') != ''){
+            const recado = {
+              message: dadosDoForm.get('scrap'),
+              creator_slug: githubUser,
+              scrapbook_slug: scrapbookUser,
+            }
 
-              const comunidade = {
-                title: dadosDoForm.get('title'),
-                imageUrl: imagemComunidade,
-                link: dadosDoForm.get('link'),
-                creator_slug: githubUser
-              };
-
-              fetch('/api/comunidades', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(comunidade)
-              })
-              .then(async (response) => {
-                const dados = await response.json()
-                console.log(dados.registroCriado)
-                const comunidade = dados.registroCriado
-                const comunidadesAtualizadas = [...comunidades, comunidade]
-                setComunidades(comunidadesAtualizadas)
-              })
+            fetch('/api/scrapbooks', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(recado)
+            })
+            .then(async (response) => {
+              const dados = await response.json()
+              console.log(dados.registroCriado)
+              const recadoEnviado = dados.registroCriado
+              const scrapbookAtualizado = [recadoEnviado, ...scraps]
+              setScraps(scrapbookAtualizado)
+            })
             }else{
-              alert('Coloque um nome na comunidade!');}
-          }}>
+              alert('Escreva uma mensagem no scrap!');
+            }
+            e.target
+            }}
+          >
             <div>
-              <input 
-                placeholder="Qual vai ser o nome da sua comunidade?" 
-                name="title" 
-                aria-label="Qual vai ser o nome da sua comunidade?" 
-              />
-            </div>
-            <div>
-              <input 
-                placeholder="Coloque uma URL para usarmos de capa (Opcional)" 
-                name="image" 
-                aria-label="Coloque uma URL para usarmos de capa (Opcional)" 
-              />
-            </div>
-            <div>
-              <input 
-                placeholder="Coloque uma URL para encaminharmos para sua comunidade (Opcional)" 
-                name="link" 
-                aria-label="Coloque uma URL para encaminharmos para sua comunidade (Opcional)" 
+              <textarea 
+                placeholder="Seu recado aqui!" 
+                name="scrap" 
+                aria-label="Seu recado aqui!" 
+                rows="5"
               />
             </div>
 
             <button>
-              Criar comunidade
+              Enviar Recado
             </button>
           </form>
         </Box>
+
         <Box>
-          <h2 className="subTitle">Seus Recados ({scraps.length})</h2>
+          <h2 className="subTitle">Página de recados de {scrapbookUser} ({scraps.length})</h2>
+          <p style={{marginBottom: '15px'}}>
+          <a href="/">Início</a>
+          <span> &gt; </span>
+          <a href={`/users/${scrapbookUser}`}>{scrapbookUser}</a>
+          <span> &gt; </span>
+          <strong>Recados</strong>
+          </p>
+
           <ul>
             {scraps.length > 0 ?
             scraps.map((itemAtual) => {
@@ -216,7 +212,7 @@ export default function Home(props) {
             })
             : 
               <NoScraps>
-                Você ainda não possui recados
+                O usuário {scrapbookUser} ainda não possui recados
               </NoScraps>
             }
           </ul>
