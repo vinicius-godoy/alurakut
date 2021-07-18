@@ -2,7 +2,7 @@
 
 Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de frontend e nos frameworks React e Next.js fazendo uma versão própria do Orkut, esse projeto usa componentes e styled components próprios, Hooks como useState e useEffect, APIs e CMD.
 
-![Print da Página Inicial do Site Alurakut](img/PrintSite.png)
+![Print da Página Inicial do Site Alurakut](img/GifSite.gif)
 
 ## Progresso
 
