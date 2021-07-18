@@ -131,8 +131,8 @@ export default function Home(props) {
           <h2 className="subTitle">O que você deseja fazer?</h2>
           <form name="form1" onSubmit={function handleCreateCommunity(e) {
             e.preventDefault();
-            document.form1.reset()
             const dadosDoForm = new FormData(e.target);
+            document.form1.reset()
 
             console.log('Nome: ', dadosDoForm.get('title'));
             console.log('Link Capa: ', dadosDoForm.get('image'));
