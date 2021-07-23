@@ -199,7 +199,7 @@ export function AlurakutProfileSidebarMenuDefault({ githubUser }) {
   return (
     <AlurakutProfileSidebarMenuDefault.Wrapper>
       <nav>
-        <a href="/">
+        <a href={`/user/${githubUser}`}>
           <img src={`${BASE_URL}/icons/user.svg`} />
             Perfil
           </a>
@@ -218,7 +218,7 @@ export function AlurakutProfileSidebarMenuDefault({ githubUser }) {
       </nav>
       <hr />
       <nav>
-        <a href="/">
+        <a href="https://github.com/trending">
           <img src={`${BASE_URL}/icons/plus.svg`} />
             GitHub Trends
           </a>
