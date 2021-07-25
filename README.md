@@ -25,7 +25,7 @@ Projeto da Imersão React da Alura para aprender e se aprofundar em conceitos de
 - [x] Adicionar funcionalidade ao botão de sair;
 - [x] Fazer Scraps/Recados Funcionais;
 - [x] Fazer campo de pesquisa Funcional;
-- [ ] Fazer Perfil Funcional;
+- [x] Fazer Perfil Funcional;
 
 ## Site em Produção
 
