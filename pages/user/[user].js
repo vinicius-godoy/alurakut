@@ -145,50 +145,53 @@ export default function UserScreen(props) {
         <Box>
           <h2 className="title" >Perfil de {profileUser}</h2>
           <div style={{display: 'flex'}}>
-            <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
-              <img src={`https://github.com/${profileUser}.png`} style={{height: '8em', width: '12em', borderRadius: '10px'}}/>
-              <hr />
-              <Box>
-              {perfilInfo.name 
-              ? <h2 className="smallTitle">{perfilInfo.name}</h2>
-              : null}
-              <strong>Repositórios: {perfilInfo.public_repos}</strong>
-              <strong>Seguidores: {perfilInfo.followers}</strong>
-              <strong>Seguindo: {perfilInfo.following}</strong>
-              </Box>
-            </div>
+            <img src={`https://github.com/${profileUser}.png`} style={{height: '12em', width: '12em', borderRadius: '10px', marginRight: '10px'}}/>
             <div>
-              {perfilInfo.bio 
-              ? 
-              <>
-              <h4>Bio:</h4>
-              <p>{perfilInfo.bio}</p>
-              </>
-              : 
-              <>
+              <ProfileBox>
+                {perfilInfo.name 
+                ? <h2>{perfilInfo.name}</h2>
+                : <h2>{profileUser}</h2>}
+                <div style={{display: 'flex', marginBottom: '5px', justifyContent: 'space-between'}}>
+                  <span><strong>Seguidores: </strong>{perfilInfo.followers}</span>
+                  <span><strong>Seguindo: </strong>{perfilInfo.following}</span>
+                </div>
+                <div style={{display: 'flex', marginBottom: '5px', justifyContent: 'space-between'}}>
+                  <span><strong>Repositórios: </strong>{perfilInfo.public_repos}</span>
+                  <span><strong>Gists: </strong>{perfilInfo.public_gists}</span>
+                </div>
+                {perfilInfo.bio 
+                ? 
+                <>
                 <h4>Bio:</h4>
-                <p>Bem vindo a minha página do Alurakut!</p>
-              </>}
+                <p>{perfilInfo.bio}</p>
+                </>
+                : 
+                <>
+                  <h4>Bio:</h4>
+                  <p>Bem vindo a minha página do Alurakut!</p>
+                </>}
 
-              {perfilInfo.company 
-              ? 
-              <>
-              <h4>Empresa:</h4>
-              <p>{perfilInfo.company}</p>
-              </>
-              : null}
+                {perfilInfo.company 
+                ? 
+                <>
+                <h4>Empresa:</h4>
+                <p>{perfilInfo.company}</p>
+                </>
+                : null}
+              </ProfileBox>
             </div>
           </div>
+          <OrkutNostalgicIconSet recados = {scraps.length} fotos= "45" videos= "2" fas= "1" mensagens= "7" confiavel="3" legal="3" sexy="3" />
         </Box>
 
         <Box>
-          <h2 className="subTitle">Página de recados de {profileUser} ({scraps.length})</h2>
+          <h2 className="subTitle">Recados de {profileUser} ({scraps.length})</h2>
           <p style={{marginBottom: '15px'}}>
           <a href="/">Início</a>
           <span> &gt; </span>
           <a href={`/user/${profileUser}`}>{profileUser}</a>
           <span> &gt; </span>
-          <strong>Recados</strong>
+          <a style={{textDecoration: 'none', color: 'black'}} href={`/scrapbook/${profileUser}`}><strong>Recados</strong></a>
           </p>
 
           <ul>
