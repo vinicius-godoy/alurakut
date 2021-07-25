@@ -13,6 +13,7 @@ import Box from '../../src/components/Box'
 import ProfileSidebar from '../../src/components/ProfileSidebar'
 import ProfileRelationsBoxWrapper from '../../src/components/ProfileRelations'
 import ProfileRelationsBox from '../../src/components/ProfileRelationsBox'
+import ProfileBox from '../../src/components/ProfileBox'
 import { ScrapBox, NoScraps } from '../../src/components/ScrapBox'
 
 export default function UserScreen(props) {
@@ -24,6 +25,42 @@ export default function UserScreen(props) {
 
   const [comunidades, setComunidades] = useState([])
   const [pesquisas, setPesquisas] = useState([])
+  const [scraps, setScraps] = useState([])
+  useEffect(() => {
+    // API GraphQL - POST
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': '01616f428a71a07ef78a335bc2182d',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({"query" : `query MyQuery {
+        allScraps(filter: {scrapbookSlug: {matches: {pattern: "${profileUser}"}}}) {
+          id
+          message
+          creatorSlug
+        }
+      }` })
+    })
+    .then((response) => response.json())
+    .then((respostaCompleta) => {
+      const scrapsVindasDoDato = respostaCompleta.data.allScraps
+      console.log(scrapsVindasDoDato)
+      setScraps(scrapsVindasDoDato)
+    })
+  }, [])
+  const [perfilInfo, setPerfilInfo] = useState([])
+  useEffect(function() {
+    // API GitHub - GET
+    const linkAPI = "https://api.github.com/users/" + profileUser
+    fetch(linkAPI)
+    .then((respostaDoServidor) => respostaDoServidor.json())
+    .then((respostaConvertida) => {
+      setPerfilInfo(respostaConvertida)
+      console.log(perfilInfo)
+    })
+  }, [])
   // Quem segue o usuário
   const [seguidores, setSeguidores] = useState([])
   useEffect(function() {
@@ -106,11 +143,75 @@ export default function UserScreen(props) {
       </div>
       <div className="welcomeArea" style={{gridArea: 'welcomeArea'}}>
         <Box>
-          
+          <h2 className="title" >Perfil de {profileUser}</h2>
+          <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+              <img src={`https://github.com/${profileUser}.png`} style={{height: '8em', width: '12em', borderRadius: '10px'}}/>
+              <hr />
+              <Box>
+              {perfilInfo.name 
+              ? <h2 className="smallTitle">{perfilInfo.name}</h2>
+              : null}
+              <strong>Repositórios: {perfilInfo.public_repos}</strong>
+              <strong>Seguidores: {perfilInfo.followers}</strong>
+              <strong>Seguindo: {perfilInfo.following}</strong>
+              </Box>
+            </div>
+            <div>
+              {perfilInfo.bio 
+              ? 
+              <>
+              <h4>Bio:</h4>
+              <p>{perfilInfo.bio}</p>
+              </>
+              : 
+              <>
+                <h4>Bio:</h4>
+                <p>Bem vindo a minha página do Alurakut!</p>
+              </>}
+
+              {perfilInfo.company 
+              ? 
+              <>
+              <h4>Empresa:</h4>
+              <p>{perfilInfo.company}</p>
+              </>
+              : null}
+            </div>
+          </div>
         </Box>
 
         <Box>
-          
+          <h2 className="subTitle">Página de recados de {profileUser} ({scraps.length})</h2>
+          <p style={{marginBottom: '15px'}}>
+          <a href="/">Início</a>
+          <span> &gt; </span>
+          <a href={`/user/${profileUser}`}>{profileUser}</a>
+          <span> &gt; </span>
+          <strong>Recados</strong>
+          </p>
+
+          <ul>
+            {scraps.length > 0 ?
+            scraps.map((itemAtual) => {
+              return (
+                <ScrapBox>
+                  <li key={itemAtual.id}>
+                    <img src={`https://github.com/${itemAtual.creatorSlug}.png`} />
+                    <div>
+                      <a href={`/users/${itemAtual.creatorSlug}`} >@{itemAtual.creatorSlug}</a>
+                      <p>{itemAtual.message}</p>
+                    </div>
+                  </li>
+                </ScrapBox>
+              )
+            })
+            : 
+              <NoScraps>
+                O usuário {profileUser} ainda não possui recados
+              </NoScraps>
+            }
+          </ul>
         </Box>
       </div>
       <div className="profileRelationsArea" style={{gridArea: 'profileRelationsArea'}}>

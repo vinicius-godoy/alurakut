@@ -190,7 +190,7 @@ export default function ScrapbookScreen(props) {
           <p style={{marginBottom: '15px'}}>
           <a href="/">Início</a>
           <span> &gt; </span>
-          <a href={`/users/${scrapbookUser}`}>{scrapbookUser}</a>
+          <a href={`/user/${scrapbookUser}`}>{scrapbookUser}</a>
           <span> &gt; </span>
           <strong>Recados</strong>
           </p>
